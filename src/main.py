@@ -4,13 +4,17 @@ import sys
 import time
 import colorama
 from colorama import Fore
+from utils.files import Files
+from security.auth import Auth
 
 
 class Main:
     def __init__(self):
         self.version = "0.0.1"
-        self.user = ">ph#3452"
-        self.start()
+        Files.check_Config()
+        Auth.check()
+        Files.check_TasksDirectory()
+        self.menu()
 
     def ui(self):
         print(Fore.BLUE + "        ____             ______          __")
@@ -21,10 +25,11 @@ class Main:
         print(
             f"                                  v{self.version} \n" + Fore.RESET)
 
-    def start(self):
+    def menu(self):
         os.system('cls')
         self.ui()
-        print(f"Happy to see you " + Fore.BLUE + f"{self.user}" + Fore.RESET)
+        print(
+            f"Happy to see you {Fore.BLUE}{Auth.getDiscordName()}" + Fore.RESET)
         print("What do u want to do ?\n")
         print(f"[ {Fore.BLUE}1{Fore.RESET} ] Start Tasks")
         print(f"[ {Fore.BLUE}2{Fore.RESET} ] Options")
