@@ -48,7 +48,7 @@ class Main:
         elif result.lower() == "e":
             print(f"{Fore.BLUE}Exit in 3 secondes..{Fore.RESET}")
             time.sleep(3)
-            sys.exit()
+            os._exit(1)
 
 
 Main()

