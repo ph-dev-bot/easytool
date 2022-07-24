@@ -6,11 +6,15 @@ import colorama
 from colorama import Fore
 from utils.files import Files
 from security.auth import Auth
+from security.anti_debug import AntiDebug
+import threading
 
 
 class Main:
     def __init__(self):
         self.version = "0.0.1"
+        os.system('cls')
+        threading.Thread(target=AntiDebug().ok, args=()).start()
         Files.check_Config()
         Auth.check()
         Files.check_TasksDirectory()
@@ -36,6 +40,8 @@ class Main:
         print(f"[ {Fore.BLUE}e{Fore.RESET} ] Exit\n")
         result = input(">")
         if result == "1":
+            while True:
+                print("ok")
             pass
         elif result == "2":
             pass
