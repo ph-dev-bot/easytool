@@ -2,7 +2,6 @@ import os
 import csv
 import glob
 import json
-from urllib import request
 
 
 class Files:
@@ -16,9 +15,29 @@ class Files:
         os.chdir(path)
         result = glob.glob('*.{}'.format(extension))
         if len(result) == 0:
-            data = ['module', 'mode', 'email', 'password',
+            data = ['module', 'mode', 'email', 'password', 'region',
                     'catchall', 'newPassword', 'catchall', 'useProxy']
             with open('../Tasks/tasks.csv', 'w', encoding='UTF8') as f:
+                writer = csv.writer(f)
+                writer.writerow(data)
+                f.close()
+
+        newPath = '../Results/'
+        isExist = os.path.exists(newPath)
+        if not isExist:
+            os.makedirs(newPath)
+
+        extension = 'csv'
+        os.chdir(newPath)
+        result = glob.glob('*.{}'.format(extension))
+        if len(result) == 0:
+            data = ['email', 'password', 'link']
+            with open('../Results/success.csv', 'w', encoding='UTF8') as f:
+                writer = csv.writer(f)
+                writer.writerow(data)
+
+            data = ['email', 'password', 'reason']
+            with open('../Results/failed.csv', 'w', encoding='UTF8') as f:
                 writer = csv.writer(f)
                 writer.writerow(data)
 

@@ -8,15 +8,16 @@ from utils.files import Files
 from security.auth import Auth
 from security.anti_debug import AntiDebug
 import threading
+from modules.zalando.subscriber import zalandoSubscriber
 
 
 class Main:
     def __init__(self):
         self.version = "0.0.1"
         os.system('cls')
-        threading.Thread(target=AntiDebug().ok, args=()).start()
-        Files.check_Config()
-        Auth.check()
+        # threading.Thread(target=AntiDebug().ok, args=()).start()
+        # Files.check_Config()
+        # Auth.check()
         Files.check_TasksDirectory()
         self.menu()
 
@@ -32,17 +33,16 @@ class Main:
     def menu(self):
         os.system('cls')
         self.ui()
-        print(
-            f"Happy to see you {Fore.BLUE}{Auth.getDiscordName()}" + Fore.RESET)
+        # print(
+        #    f"Happy to see you {Fore.BLUE}{Auth.getDiscordName()}" + Fore.RESET)
         print("What do u want to do ?\n")
         print(f"[ {Fore.BLUE}1{Fore.RESET} ] Start Tasks")
         print(f"[ {Fore.BLUE}2{Fore.RESET} ] Options")
         print(f"[ {Fore.BLUE}e{Fore.RESET} ] Exit\n")
         result = input(">")
         if result == "1":
-            while True:
-                print("ok")
-            pass
+            zalandoSubscriber("1", "przemo120472@interia.pl",
+                              "Marcel13012006", "fr", "false")
         elif result == "2":
             pass
         elif result.lower() == "e":
