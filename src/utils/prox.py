@@ -1,5 +1,5 @@
 import random
-
+import sys
 
 class Proxyz:
     def randomProxy(self):
@@ -29,4 +29,5 @@ class Proxyz:
                 return {}
         except:
             print("Error in your proxies file! Check and restart!")
+            sys.exit(1)
             return

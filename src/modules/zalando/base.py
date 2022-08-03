@@ -7,7 +7,7 @@ import sys
 class Base:
     def _login(self):
         try:
-            Logger.normal("1", f"Try to login with {self.email}")
+            Logger.normal(self.taskID, f"Try to login with {self.email}")
             payload = json.dumps({
                 "password": self.password,
                 "email": self.email,

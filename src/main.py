@@ -16,9 +16,9 @@ class Main:
         self.version = "0.0.1"
         os.system('cls')
         # threading.Thread(target=AntiDebug().ok, args=()).start()
-        # Files.check_Config()
-        # Auth.check()
-        Files.check_TasksDirectory()
+        #Files.check_Config()
+        #Auth.check()
+        #Files.check_TasksDirectory()
         self.menu()
 
     def ui(self):
@@ -36,19 +36,37 @@ class Main:
         # print(
         #    f"Happy to see you {Fore.BLUE}{Auth.getDiscordName()}" + Fore.RESET)
         print("What do u want to do ?\n")
-        print(f"[ {Fore.BLUE}1{Fore.RESET} ] Start Tasks")
+        print(f"[ {Fore.BLUE}1{Fore.RESET} ] Modules")
         print(f"[ {Fore.BLUE}2{Fore.RESET} ] Options")
         print(f"[ {Fore.BLUE}e{Fore.RESET} ] Exit\n")
         result = input(">")
         if result == "1":
             zalandoSubscriber("1", "przemo120472@interia.pl",
-                              "Marcel13012006", "fr", "false")
+                              "Marcel13012006", "fr", "true")
         elif result == "2":
             pass
         elif result.lower() == "e":
             print(f"{Fore.BLUE}Exit in 3 secondes..{Fore.RESET}")
             time.sleep(3)
             os._exit(1)
+        else:
+            self.menu()
+    
+    def modulesMenu(self):
+        os.system('cls')
+        self.ui()
+        print("What do u want to do ?\n")
+        print(f"[ {Fore.BLUE}1{Fore.RESET} ] Zalando")
+        print(f"[ {Fore.BLUE}b{Fore.RESET} ] Back\n")   
+        result = input(">")
+        if result == "1":
+            zalandoSubscriber("1", "przemo120472@interia.pl",
+                              "Marcel13012006", "fr", "true")
+        elif result.lower() == "b":
+            self.menu()
+        else:
+            self.modulesMenu()
+
 
 
 Main()

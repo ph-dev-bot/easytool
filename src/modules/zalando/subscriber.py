@@ -41,11 +41,30 @@ class zalandoSubscriber:
             response = self.client.get('https://www.zalando.fr/api/plus/membership-fragment/subscription/form/OVERLAY',
 
                                        params=params, headers=headers, proxies=Proxyz.randomProxy(self))
-            print(response.text)
+            if response.status_code == 200:
+                if response.json()['eligibility']["eligible"] == True:
+                    if response.json()['ui']["showBillingAddressForm"] == True:
+                        self._sendBillingForm()
+                    else:
+                        self._selectPaypal()
+                else:
+                    Logger.error(self.taskID, f"Not eligible to Zalando+ with {self.email}")
+
+
+    
+
+            elif response.status_code == 429:
+                Logger.error(self.taskID, f"Rate Limit with {self.email}")
+                self._isEligible()
+            elif response.status_code == 502 or response.status_code == 503:
+                Logger.error(self.taskID, f"Proxy error with {self.email}")
+                self._isEligible()
         except:
             Logger.error(
                 self.taskID, f"Error while checking eligibility with {self.email}")
 
+    def _sendBillingForm(self):
+        pass
     def _getCsrf(self):
         pass
 
