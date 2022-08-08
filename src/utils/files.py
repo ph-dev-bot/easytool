@@ -10,24 +10,24 @@ class Files:
         isExist = os.path.exists(path)
         if not isExist:
             os.makedirs(path)
-        
-        ##CHECK ZALANDO DIRECTORY
+
+        # CHECK ZALANDO DIRECTORY
         path = 'Tasks/zalando'
         isExist = os.path.exists(path)
         if not isExist:
             os.makedirs(path)
 
-        ##CHECK ZALANDO TASKS.CSV
+        # CHECK ZALANDO TASKS.CSV
         extension = 'csv'
         os.chdir(path)
         result = glob.glob('*.{}'.format(extension))
         if len(result) == 0:
-            data = ['mode', 'email', 'password', 'country', 'newPassword', 'city', 'cityCode', 'address', 'useProxy']
+            data = ['mode', 'email', 'password', 'country',
+                    'newPassword', 'firstname', 'lastname', 'street', 'zip', 'city', 'useProxy']
             with open('tasks.csv', 'w', encoding='UTF8') as f:
                 writer = csv.writer(f)
                 writer.writerow(data)
                 f.close()
-
 
         newPath = '../Results/'
         isExist = os.path.exists(newPath)
@@ -46,6 +46,7 @@ class Files:
             with open('../Results/failed.csv', 'w', encoding='UTF8') as f:
                 writer = csv.writer(f)
                 writer.writerow(data)
+        os.chdir("../../")
 
     def check_Config():
         path = 'config/'

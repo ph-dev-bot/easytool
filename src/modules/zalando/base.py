@@ -47,3 +47,38 @@ class Base:
         except Exception as e:
             Logger.error(self.taskID, f"Error with {self.email}")
             sys.exit(1)
+
+    def _getCSRF(self):
+        try:
+            Logger.normal(self.taskID, f"Getting csrf token with {self.email}")
+            headers = {
+                'Accept': '*/*',
+                'Accept-Language': 'fr-FR',
+                'Connection': 'keep-alive',
+                'Origin': f'https://www.zalando.{self.region}',
+                'Referer': f'https://www.zalando.{self.region}/',
+                'Sec-Fetch-Dest': 'empty',
+                'Sec-Fetch-Mode': 'cors',
+                'Sec-Fetch-Site': 'cross-site',
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36',
+                'sec-ch-ua': '".Not/A)Brand";v="99", "Google Chrome";v="103", "Chromium";v="103"',
+                'sec-ch-ua-mobile': '?0',
+                'sec-ch-ua-platform': '"Windows"',
+            }
+
+            response = self.client.get(f"https://m.zalando.{self.region}",
+                                       headers=headers, proxies=Proxyz.randomProxy(self))
+            if response.status_code == 200:
+                for cookie in self.client.cookies:
+                    if cookie.name == "frsx":
+                        xsrf = cookie.value
+                return xsrf
+            elif response.status_code == 502 or response.status_code == 503:
+                Logger.error(self.taskID, f"Proxy Error with {self.email}")
+                self._getCSRF()
+            else:
+                Logger.error(self.taskID, f"Error with {self.email}")
+                sys.exit(1)
+        except Exception as e:
+            Logger.error(self.taskID, f"Error with {self.email}")
+            self._getCSRF()

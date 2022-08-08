@@ -1,5 +1,7 @@
 import random
 import sys
+import os
+
 
 class Proxyz:
     def randomProxy(self):
@@ -27,7 +29,8 @@ class Proxyz:
                     return random.choice(lisT)
             else:
                 return {}
-        except:
+        except Exception as e:
+            print(os.getcwd())
             print("Error in your proxies file! Check and restart!")
             sys.exit(1)
             return
