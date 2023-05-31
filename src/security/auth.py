@@ -12,7 +12,7 @@ class Auth:
             'wmic csproduct get uuid'), 'utf-8').split('\n')[1].strip()
         key_input = input("Enter your key: ")
         license_key = key_input
-        API_KEY = "pk_uptf1sKSNz5GmSLd2zCv93d587x2Lfb2"
+        API_KEY = ""
         url = "https://api.metalabs.io/v4/licenses/" + str(license_key)
         headers = {
             "Authorization": f"Bearer {API_KEY}"}
@@ -85,7 +85,7 @@ class Auth:
         current_machine_id = str(subprocess.check_output(
             'wmic csproduct get uuid'), 'utf-8').split('\n')[1].strip()
 
-        API_KEY = "pk_uptf1sKSNz5GmSLd2zCv93d587x2Lfb2"
+        API_KEY = ""
         url = "https://api.metalabs.io/v4/licenses/" + str(key)
         headers = {
             "Authorization": f"Bearer {API_KEY}"}
@@ -152,7 +152,7 @@ class Auth:
         with open("../config/config.json", "r+") as jsonFile:
             data = json.load(jsonFile)
         headers = {
-            'Authorization': f'Bearer pk_uptf1sKSNz5GmSLd2zCv93d587x2Lfb2'
+            'Authorization': f'Bearer '
         }
 
         req = requests.get(
